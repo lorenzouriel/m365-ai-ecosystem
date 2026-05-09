@@ -48,6 +48,25 @@ LLM_DEFAULT_PROVIDER=claude     # or "openai"
 LLM_CLAUDE_MODEL=claude-sonnet-4-20250514
 ```
 
+## 🚀 Project Delivery Phases
+
+### Phase 1 — Foundation (Completed)
+- Azure infrastructure provisioned via Bicep
+- M365 SSO via Entra ID (MSAL) and working web portal
+- Claude API connected with a locked, version-controlled system prompt
+- Word and Outlook integrations via Microsoft Graph
+
+### Phase 2 — Memory Layer (Completed)
+- Azure AI Search integration for hybrid vector + keyword search
+- Interaction logging pipeline to Cosmos DB
+- RAG pipeline seamlessly injecting organizational knowledge into the chat
+
+### Phase 3 — Full M365 & Production Lock-in (Completed)
+- PowerPoint (`pptxgenjs`) and Excel (`exceljs`) integrations for complex data exports
+- Locked-in Branded Output Templates strictly enforcing the Meridian brand identity
+- Role-Based Permissions (RBAC) hiding Admin interfaces from standard users
+- Data Loss Prevention (DLP) guardrails to protect firm-sensitive data
+
 ## 📊 Tech Stack
 
 | Layer | Technology |
@@ -56,10 +75,11 @@ LLM_CLAUDE_MODEL=claude-sonnet-4-20250514
 | Auth | MSAL.js, Microsoft Entra ID |
 | LLM | Claude API, OpenAI API (agnostic) |
 | M365 | Microsoft Graph SDK |
+| Document Gen | `pptxgenjs`, `exceljs` |
 | Search | Azure AI Search |
 | Database | Azure Cosmos DB |
 | IaC | Azure Bicep |
 
 ---
 
-*Built as a portfolio demonstration of M365 + AI integration capabilities.*
+*Built as a comprehensive portfolio demonstration of Microsoft 365 + AI integration capabilities.*
