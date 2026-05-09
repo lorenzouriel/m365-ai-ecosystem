@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# M365 AI Integration Platform
 
-## Getting Started
+> **Portfolio Project** — AI-powered workspace for commercial real estate, built on Microsoft 365 + Azure
 
-First, run the development server:
+A production-grade, LLM-agnostic orchestration platform that connects AI capabilities to Microsoft 365's data layer. Designed for a 25-person real estate advisory firm where all users share a single organizational knowledge base.
+
+## ✨ Key Features
+
+- **LLM-Agnostic Architecture** — Swap Claude ↔ OpenAI (or any model) via config, not code changes
+- **Microsoft 365 Integration** — Word, Outlook, SharePoint, Teams via Microsoft Graph API
+- **Shared Knowledge Base** — Azure AI Search with hybrid vector + keyword search across all team interactions
+- **Branded Output** — All AI-generated documents follow locked brand templates (logos, colors, fonts)
+- **Role-Based Access** — Admin/Analyst/Viewer roles via Microsoft Entra ID claims
+- **Streaming Chat** — Real-time AI responses with markdown rendering and M365 action buttons
+- **Infrastructure as Code** — One-command Azure deployment via Bicep templates
+
+## 🚀 Quick Start
 
 ```bash
+npm install
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Azure Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```powershell
+az login
+.\infra\deploy.ps1 -ResourceGroup "rg-meridian-ai" -AppName "meridian-ai"
+```
 
-## Learn More
+## 🔄 Model-Agnostic Design
 
-To learn more about Next.js, take a look at the following resources:
+The LLM Router abstracts provider APIs behind a unified interface:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```typescript
+interface LLMProvider {
+  chat(messages: Message[], options?: LLMOptions): Promise<LLMResponse>;
+  stream(messages: Message[], options?: LLMOptions): AsyncIterable<StreamChunk>;
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Swapping models is a config change in `.env`:
+```
+LLM_DEFAULT_PROVIDER=claude     # or "openai"
+LLM_CLAUDE_MODEL=claude-sonnet-4-20250514
+```
 
-## Deploy on Vercel
+## 📊 Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Next.js 15, React 19, Tailwind CSS 4 |
+| Auth | MSAL.js, Microsoft Entra ID |
+| LLM | Claude API, OpenAI API (agnostic) |
+| M365 | Microsoft Graph SDK |
+| Search | Azure AI Search |
+| Database | Azure Cosmos DB |
+| IaC | Azure Bicep |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+*Built as a portfolio demonstration of M365 + AI integration capabilities.*
